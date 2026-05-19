@@ -16,21 +16,20 @@
 
   <!-- ═══════════════════════════════════════════════════════════════
        INLINE STYLE OVERRIDES
-       (styles.css 는 그대로 두고, 이번 수정분만 여기에 인라인)
+       (styles.css 의 원본 규칙을 덮어쓰는 추가분)
        ═══════════════════════════════════════════════════════════════ -->
   <style>
     /* ─── 0. 히어로 위쪽 여백 줄이기 ─── */
-.page { padding-top: 26px; }
-.hero { padding: 0 0 36px; }
-.hero__sparkles { height: 20px; margin-bottom: 4px; }
-.hero__title { margin-bottom: 20px; }
-.hero__subtitle { margin-bottom: 20px; }
+    .page { padding-top: 26px; }
+    .hero { padding: 0 0 36px; }
+    .hero__sparkles { height: 20px; margin-bottom: 4px; }
+    .hero__title { margin-bottom: 20px; }
+    .hero__subtitle { margin-bottom: 20px; }
+
     /* ─── 1. 접속 방법 카드 키우기 ─── */
-    .access-grid {
-      gap: 28px;
-    }
+    .access-grid { gap: 28px; }
     .access-card {
-      cursor: default;            /* 카드 전체 클릭 → 두 버튼 클릭으로 변경 */
+      cursor: default;
       min-height: 480px;
       padding: 44px 38px 38px;
       border-radius: 32px;
@@ -77,8 +76,8 @@
                   border-color 0.3s var(--ease-out);
       white-space: nowrap;
     }
+    .access-btn__ico { display: inline-flex; align-items: center; }
 
-    /* Secondary — 접속 방법 (popup) */
     .access-btn--ghost {
       background: rgba(255, 255, 255, 0.7);
       color: var(--c-ink);
@@ -95,7 +94,6 @@
     .access-card--share .access-btn--ghost:hover { border-color: rgba(14, 159, 110, 0.3); }
     .access-card--share .access-btn--ghost .access-btn__ico { color: var(--c-green-deep); }
 
-    /* Primary — 바로가기 (external link) */
     .access-btn--solid {
       color: #fff;
       background: linear-gradient(135deg, var(--c-blue) 0%, var(--c-purple) 100%);
@@ -153,7 +151,6 @@
       color: var(--c-ink-soft);
       font-weight: 700;
     }
-    /* placeholder는 이제 안 쓰니까 숨김 */
     .modal__body[data-empty]::before { display: none; }
 
     /* 좁은 화면 보정 */
@@ -170,7 +167,7 @@
 </head>
 <body>
 
-  <!-- Animated gradient mesh background (full width) -->
+  <!-- Animated gradient mesh background -->
   <div class="bg-stage" aria-hidden="true">
     <div class="bg-blob bg-blob--1"></div>
     <div class="bg-blob bg-blob--2"></div>
@@ -178,11 +175,9 @@
     <div class="bg-grain"></div>
   </div>
 
-  <!-- 900px centered page -->
   <main class="page">
 
     <!-- ═══════════════════════ HERO ═══════════════════════ -->
-    <!-- ✅ SCROLL 큐 제거됨 -->
     <section class="hero reveal" data-reveal="up">
       <div class="hero__sparkles" aria-hidden="true">
         <span class="spark spark--1">✦</span>
@@ -197,8 +192,8 @@
       </h1>
 
       <p class="hero__subtitle">
-  <span class="hero__chip-korean">AI 활용 소통 커뮤니티</span>
-</p>
+        <span class="hero__chip-korean">AI 활용 소통 커뮤니티</span>
+      </p>
 
       <p class="hero__desc">
         AI와 함께 즐겁게 노는 공간, <strong>PlayGround</strong>에서<br />
@@ -235,8 +230,7 @@
 
       <div class="access-grid">
 
-        <!-- ═══════ LEFT · Teams ═══════ -->
-        <!-- ✅ <button> → <div> 변경, 숫자(01) 제거, 카드 안에 버튼 2개 -->
+        <!-- LEFT · Teams -->
         <div class="access-card access-card--teams reveal" data-reveal="left">
           <span class="access-card__bg" aria-hidden="true"></span>
           <span class="access-card__shine" aria-hidden="true"></span>
@@ -275,16 +269,15 @@
             AI 활용 노하우를 나눠보세요.
           </p>
 
-          <!-- ✅ 새로 추가: 접속 방법 + 바로가기 두 버튼 -->
           <div class="access-actions">
             <button type="button" class="access-btn access-btn--ghost" data-modal="modal-teams">
               <span class="access-btn__ico" aria-hidden="true">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 13v8"/>
-    <path d="M12 3v3"/>
-    <path d="M2.354 10.354a1.207 1.207 0 0 1 0-1.708l2.06-2.06A2 2 0 0 1 5.828 6h12.344a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H5.828a2 2 0 0 1-1.414-.586z"/>
-  </svg>
-</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 13v8"/>
+                  <path d="M12 3v3"/>
+                  <path d="M2.354 10.354a1.207 1.207 0 0 1 0-1.708l2.06-2.06A2 2 0 0 1 5.828 6h12.344a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H5.828a2 2 0 0 1-1.414-.586z"/>
+                </svg>
+              </span>
               접속 방법
             </button>
             <a class="access-btn access-btn--solid"
@@ -296,7 +289,7 @@
           </div>
         </div>
 
-        <!-- ═══════ RIGHT · SharePoint ═══════ -->
+        <!-- RIGHT · SharePoint -->
         <div class="access-card access-card--share reveal" data-reveal="right">
           <span class="access-card__bg" aria-hidden="true"></span>
           <span class="access-card__shine" aria-hidden="true"></span>
@@ -340,12 +333,12 @@
           <div class="access-actions">
             <button type="button" class="access-btn access-btn--ghost" data-modal="modal-share">
               <span class="access-btn__ico" aria-hidden="true">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 13v8"/>
-    <path d="M12 3v3"/>
-    <path d="M2.354 10.354a1.207 1.207 0 0 1 0-1.708l2.06-2.06A2 2 0 0 1 5.828 6h12.344a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H5.828a2 2 0 0 1-1.414-.586z"/>
-  </svg>
-</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 13v8"/>
+                  <path d="M12 3v3"/>
+                  <path d="M2.354 10.354a1.207 1.207 0 0 1 0-1.708l2.06-2.06A2 2 0 0 1 5.828 6h12.344a2 2 0 0 1 1.414.586l2.06 2.06a1.207 1.207 0 0 1 0 1.708l-2.06 2.06a2 2 0 0 1-1.414.586H5.828a2 2 0 0 1-1.414-.586z"/>
+                </svg>
+              </span>
               접속 방법
             </button>
             <a class="access-btn access-btn--solid"
@@ -360,125 +353,97 @@
       </div>
     </section>
 
-    <!-- ═══════════════════════ PANEL: 메뉴 소개 ═══════════════════════ -->
+    <!-- ═══════════════════════ PANEL: 메뉴 소개 (v2: 항상 펼친 모습) ═══════════════════════ -->
     <section class="panel" id="panel-menu" role="tabpanel" aria-labelledby="tab-menu" hidden>
 
       <header class="panel__header reveal" data-reveal="up">
         <p class="panel__kicker">SECTION 02 · MENU</p>
         <h2 class="panel__title">PlayGround 의 다섯 가지 풍경</h2>
-        <p class="panel__lead">카드 위에 마우스를 올려보세요. 자세한 내용이 펼쳐집니다.</p>
+        <p class="panel__lead">PlayGround 에서 만날 수 있는 메뉴를 소개합니다.</p>
       </header>
 
       <div class="menu-stack">
-        <!-- 1. 자유게시판 -->
+
+        <!-- 1. 자유게시판(팀즈 전용) -->
         <article class="menu-card reveal" data-reveal="up" style="--i:0">
           <div class="menu-card__rail" aria-hidden="true"></div>
-          <div class="menu-card__compact">
+          <div class="menu-card__row">
             <span class="menu-card__icon">💬</span>
             <div class="menu-card__head">
-              <span class="menu-card__tag">실시간 소통</span>
+              <p class="menu-card__lead">실시간 Q&amp;A · 전사 소통 허브</p>
               <h3 class="menu-card__name">자유게시판(팀즈 전용)</h3>
             </div>
-            <span class="menu-card__plus" aria-hidden="true">+</span>
-          </div>
-          <div class="menu-card__expand">
-            <div class="menu-card__inner">
-              <p class="menu-card__lead">실시간 Q&amp;A · 전사 소통 허브</p>
-              <ul class="menu-card__list">
-                <li>AI 활용 중 생기는 궁금증을 동료들과 자유롭게 묻고 답하는 채팅 공간</li>
-                <li>부서 간 장벽 없이 실무 꿀팁을 나누는 소통의 장</li>
-              </ul>
-            </div>
+            <ul class="menu-card__list">
+              <li>AI 활용 중 생기는 궁금증을 동료들과 자유롭게 묻고 답하는 채팅 공간</li>
+              <li>부서 간 장벽 없이 실무 꿀팁을 나누는 소통의 장</li>
+            </ul>
           </div>
         </article>
 
         <!-- 2. PlayDay -->
         <article class="menu-card reveal" data-reveal="up" style="--i:1">
           <div class="menu-card__rail" aria-hidden="true"></div>
-          <div class="menu-card__compact">
+          <div class="menu-card__row">
             <span class="menu-card__icon">🎮</span>
             <div class="menu-card__head">
-              <span class="menu-card__tag">체험 액티비티</span>
+              <p class="menu-card__lead">체험형 액티비티 · 우수 사례 전시</p>
               <h3 class="menu-card__name">PlayDay</h3>
             </div>
-            <span class="menu-card__plus" aria-hidden="true">+</span>
-          </div>
-          <div class="menu-card__expand">
-            <div class="menu-card__inner">
-              <p class="menu-card__lead">체험형 액티비티 · 우수 사례 전시</p>
-              <ul class="menu-card__list">
-                <li>일상 속 AI의 주요 기능을 직접 경험할 수 있는 액티비티</li>
-                <li>우수 AI 활용 사례를 전시하고 공유하는 플랫폼</li>
-              </ul>
-            </div>
+            <ul class="menu-card__list">
+              <li>일상 속 AI의 주요 기능을 직접 경험할 수 있는 액티비티</li>
+              <li>우수 AI 활용 사례를 전시하고 공유하는 플랫폼</li>
+            </ul>
           </div>
         </article>
 
         <!-- 3. PlayBook -->
-<article class="menu-card reveal" data-reveal="up" style="--i:2">
-  <div class="menu-card__rail" aria-hidden="true"></div>
-  <div class="menu-card__compact">
-    <span class="menu-card__icon">📖</span>
-    <div class="menu-card__head">
-      <span class="menu-card__tag">정기 소식지</span>
-      <h3 class="menu-card__name">PlayBook</h3>
-    </div>
-    <span class="menu-card__plus" aria-hidden="true">+</span>
-  </div>
-  <div class="menu-card__expand">
-    <div class="menu-card__inner">
-      <p class="menu-card__lead">정기 뉴스레터 · 인사이트 큐레이션</p>
-      <ul class="menu-card__list">
-        <li>최신 AI 트렌드 · AI Tool 활용 가이드</li>
-        <li>선행 조직의 생생한 인터뷰 등 AI 인사이트를 담은 정기 뉴스레터</li>
-      </ul>
-    </div>
-  </div>
-</article>
-
-<!-- 4. AI Guide -->
-<article class="menu-card reveal" data-reveal="up" style="--i:3">
-  <div class="menu-card__rail" aria-hidden="true"></div>
-  <div class="menu-card__compact">
-    <span class="menu-card__icon">🧭</span>
-    <div class="menu-card__head">
-      <span class="menu-card__tag">활용사례(Usecase)</span>
-      <h3 class="menu-card__name">AI Guide</h3>
-    </div>
-    <span class="menu-card__plus" aria-hidden="true">+</span>
-  </div>
-  <div class="menu-card__expand">
-    <div class="menu-card__inner">
-      <p class="menu-card__lead">검증된 우수 사례 · 프롬프트 라이브러리</p>
-      <ul class="menu-card__list">
-        <li>ACE가 발굴하고 현업에서 검증된 우수 AI 활용 사례 모음</li>
-        <li>바로 가져다 쓸 수 있는 프롬프트를 한눈에 확인하는 지식 라이브러리</li>
-      </ul>
-    </div>
-  </div>
-</article>
-
-        <!-- 5. AI 지원 -->
-        <article class="menu-card reveal" data-reveal="up" style="--i:4">
+        <article class="menu-card reveal" data-reveal="up" style="--i:2">
           <div class="menu-card__rail" aria-hidden="true"></div>
-          <div class="menu-card__compact">
-            <span class="menu-card__icon">🛟</span>
+          <div class="menu-card__row">
+            <span class="menu-card__icon">📖</span>
             <div class="menu-card__head">
-              <span class="menu-card__tag">현업 AI문의</span>
-              <h3 class="menu-card__name">AI 지원(쉐어포인트 전용)</h3>
+              <p class="menu-card__lead">정기 뉴스레터 · 인사이트 큐레이션</p>
+              <h3 class="menu-card__name">PlayBook</h3>
             </div>
-            <span class="menu-card__plus" aria-hidden="true">+</span>
-          </div>
-          <div class="menu-card__expand">
-            <div class="menu-card__inner">
-              <p class="menu-card__lead">현업도입·활용 통합 창구</p>
-              <ul class="menu-card__list">
-                <li>업무 적용 시 필요한 AI 도구 도입과 운영 관련 도움</li>
-                <li>문의 유형에 따라 현장 출장 및 원격 지원</li>
-              </ul>
-            </div>
+            <ul class="menu-card__list">
+              <li>최신 AI 트렌드 · AI Tool 활용 가이드</li>
+              <li>선행 조직의 생생한 인터뷰 등 AI 인사이트를 담은 정기 뉴스레터</li>
+            </ul>
           </div>
         </article>
+
+        <!-- 4. AI Guide -->
+        <article class="menu-card reveal" data-reveal="up" style="--i:3">
+          <div class="menu-card__rail" aria-hidden="true"></div>
+          <div class="menu-card__row">
+            <span class="menu-card__icon">🧭</span>
+            <div class="menu-card__head">
+              <p class="menu-card__lead">검증된 우수 사례 · 프롬프트 라이브러리</p>
+              <h3 class="menu-card__name">AI Guide</h3>
+            </div>
+            <ul class="menu-card__list">
+              <li>ACE가 발굴하고 현업에서 검증된 우수 AI 활용 사례 모음</li>
+              <li>바로 가져다 쓸 수 있는 프롬프트를 한눈에 확인하는 지식 라이브러리</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 5. AI 지원(쉐어포인트 전용) -->
+        <article class="menu-card reveal" data-reveal="up" style="--i:4">
+          <div class="menu-card__rail" aria-hidden="true"></div>
+          <div class="menu-card__row">
+            <span class="menu-card__icon">🛟</span>
+            <div class="menu-card__head">
+              <p class="menu-card__lead">현업도입·활용 통합 창구</p>
+              <h3 class="menu-card__name">AI 지원(쉐어포인트 전용)</h3>
+            </div>
+            <ul class="menu-card__list">
+              <li>업무 적용 시 필요한 AI 도구 도입과 운영 관련 도움</li>
+              <li>문의 유형에 따라 현장 출장 및 원격 지원</li>
+            </ul>
+          </div>
+        </article>
+
       </div>
     </section>
 
@@ -512,13 +477,12 @@
     <footer class="footer reveal" data-reveal="up">
       <div class="footer__divider"></div>
       <img src="assets/aidesignlab-logo.png" alt="AI 디자인랩" class="footer__logo" />
-      <p class="footer__copy">© 2026 Hyundai E&amp;C · AI 디자인랩</p>
+      <p class="footer__copy">워크이노베이션센터 · AI 디자인랩</p>
     </footer>
 
   </main>
 
   <!-- ═══════════════════════ MODALS ═══════════════════════ -->
-  <!-- ✅ Teams 접속 방법 (좌카드 [접속 방법] 클릭 시) -->
   <div class="modal" id="modal-teams" role="dialog" aria-modal="true" aria-labelledby="modal-teams-title" hidden>
     <div class="modal__backdrop" data-close></div>
     <div class="modal__panel">
@@ -538,7 +502,6 @@
     </div>
   </div>
 
-  <!-- ✅ SharePoint 접속 방법 (우카드 [접속 방법] 클릭 시) -->
   <div class="modal" id="modal-share" role="dialog" aria-modal="true" aria-labelledby="modal-share-title" hidden>
     <div class="modal__backdrop" data-close></div>
     <div class="modal__panel">
