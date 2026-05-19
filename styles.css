@@ -951,3 +951,20 @@ img { display: block; max-width: 100%; }
   }
   .bg-blob { animation: none; }
 }
+.hero__chip-korean {
+  display: inline-block;
+  padding: 9px 20px;
+  border: 1px solid var(--glass-edge);
+  border-radius: 999px;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--c-ink-soft);
+}
+/* 패널 헤더(SECTION · ACCESS / 필요에 따라... / lead) 숨기기 */
+.panel__header { display: none; }
+
+/* 위아래 간격 적당히 좁히기 */
+.tabs { margin-bottom: 44px; }

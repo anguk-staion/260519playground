@@ -19,6 +19,12 @@
        (styles.css 는 그대로 두고, 이번 수정분만 여기에 인라인)
        ═══════════════════════════════════════════════════════════════ -->
   <style>
+    /* ─── 0. 히어로 위쪽 여백 줄이기 ─── */
+.page { padding-top: 26px; }
+.hero { padding: 0 0 36px; }
+.hero__sparkles { height: 20px; margin-bottom: 4px; }
+.hero__title { margin-bottom: 20px; }
+.hero__subtitle { margin-bottom: 20px; }
     /* ─── 1. 접속 방법 카드 키우기 ─── */
     .access-grid {
       gap: 28px;
@@ -191,9 +197,8 @@
       </h1>
 
       <p class="hero__subtitle">
-        <span class="hero__chip">HYUNDAI E&amp;C</span>
-        <span class="hero__sub-text">현대건설 AI 활용 소통 커뮤니티</span>
-      </p>
+  <span class="hero__chip-korean">AI 활용 소통 커뮤니티</span>
+</p>
 
       <p class="hero__desc">
         AI와 함께 즐겁게 노는 공간, <strong>PlayGround</strong>에서<br />
@@ -241,7 +246,7 @@
               <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
                 <path fill="currentColor" d="M5 4h9v2H5zm0 5h14v2H5zm0 5h14v2H5zm0 5h9v2H5z"/>
               </svg>
-              Microsoft Teams
+              [Teams] PlayGround
             </span>
           </div>
 
@@ -295,7 +300,7 @@
               <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
                 <path fill="currentColor" d="M4 4h7v7H4zm9 0h7v7h-7zm-9 9h7v7H4zm9 0h7v7h-7z"/>
               </svg>
-              SharePoint
+              [SharePoint] PlayGround
             </span>
           </div>
 
@@ -360,7 +365,7 @@
             <span class="menu-card__icon">💬</span>
             <div class="menu-card__head">
               <span class="menu-card__tag">01 · BOARD</span>
-              <h3 class="menu-card__name">자유게시판</h3>
+              <h3 class="menu-card__name">자유게시판(팀즈 전용)</h3>
             </div>
             <span class="menu-card__plus" aria-hidden="true">+</span>
           </div>
@@ -379,7 +384,7 @@
         <article class="menu-card reveal" data-reveal="up" style="--i:1">
           <div class="menu-card__rail" aria-hidden="true"></div>
           <div class="menu-card__compact">
-            <span class="menu-card__icon">🎈</span>
+            <span class="menu-card__icon">🎮</span>
             <div class="menu-card__head">
               <span class="menu-card__tag">02 · EXPERIENCE</span>
               <h3 class="menu-card__name">PlayDay</h3>
@@ -401,7 +406,7 @@
         <article class="menu-card reveal" data-reveal="up" style="--i:2">
           <div class="menu-card__rail" aria-hidden="true"></div>
           <div class="menu-card__compact">
-            <span class="menu-card__icon">🧭</span>
+            <span class="menu-card__icon">💡</span>
             <div class="menu-card__head">
               <span class="menu-card__tag">03 · GUIDE</span>
               <h3 class="menu-card__name">AI Guide</h3>
@@ -423,7 +428,7 @@
         <article class="menu-card reveal" data-reveal="up" style="--i:3">
           <div class="menu-card__rail" aria-hidden="true"></div>
           <div class="menu-card__compact">
-            <span class="menu-card__icon">📖</span>
+            <span class="menu-card__icon">📘</span>
             <div class="menu-card__head">
               <span class="menu-card__tag">04 · NEWSLETTER</span>
               <h3 class="menu-card__name">PlayBook</h3>
@@ -448,7 +453,7 @@
             <span class="menu-card__icon">🛟</span>
             <div class="menu-card__head">
               <span class="menu-card__tag">05 · SUPPORT</span>
-              <h3 class="menu-card__name">AI 지원</h3>
+              <h3 class="menu-card__name">AI 지원(쉐어포인트 전용)</h3>
             </div>
             <span class="menu-card__plus" aria-hidden="true">+</span>
           </div>
