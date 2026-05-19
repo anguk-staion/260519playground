@@ -939,3 +939,9 @@ img { display: block; max-width: 100%; }
 /* ─── 지원 카드 글자도 같은 톤으로 ─── */
 .support-card__caption { font-size: 17px; line-height: 1.75; }
 .support-card__btn     { font-size: 17px; }
+
+/* 푸터 간격 줄이기 */
+.footer {
+  margin-top: 40px !important;   /* 기본 100px → 40px */
+  padding-top: 20px !important;  /* 기본 50px → 20px */
+}
