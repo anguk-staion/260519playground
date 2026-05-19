@@ -196,12 +196,12 @@
       </p>
 
       <p class="hero__desc">
-        AI와 함께 즐겁게 노는 공간, <strong>PlayGround</strong>에서<br />
+        AI와 함께 자유롭게 교류하는 공간, <strong>PlayGround</strong>에서<br />
         부서 간 장벽 없이 실무 꿀팁과 인사이트를 나눠보세요.
       </p>
     </section>
 
-    <!-- ═══════════════════════ TAB NAV ═══════════════════════ -->
+    <!-- ═══════════════════════ TAB NAV (4개) ═══════════════════════ -->
     <nav class="tabs reveal" data-reveal="up" role="tablist" aria-label="PlayGround 메뉴">
       <div class="tabs__indicator" aria-hidden="true"></div>
       <button class="tab is-active" role="tab" aria-selected="true" data-tab="access">
@@ -216,6 +216,10 @@
         <span class="tab__num">03</span>
         <span class="tab__label">팀즈 활용팁</span>
         <span class="tab__external" aria-hidden="true">↗</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="support">
+        <span class="tab__num">04</span>
+        <span class="tab__label">AI 지원 요청</span>
       </button>
     </nav>
 
@@ -358,7 +362,7 @@
 
       <header class="panel__header reveal" data-reveal="up">
         <p class="panel__kicker">SECTION 02 · MENU</p>
-        <h2 class="panel__title">PlayGround 의 다섯 가지 풍경</h2>
+        <h2 class="panel__title">PlayGround 의 네 가지 풍경</h2>
         <p class="panel__lead">PlayGround 에서 만날 수 있는 메뉴를 소개합니다.</p>
       </header>
 
@@ -374,7 +378,7 @@
               <h3 class="menu-card__name">자유게시판(팀즈 전용)</h3>
             </div>
             <ul class="menu-card__list">
-              <li>AI 활용 중 생기는 궁금증을 동료들과 자유롭게 묻고 답하는 채팅 공간</li>
+              <li>AI 활용 중 생기는 궁금증을 동료들과 자유롭게<br />묻고 답하는 채팅 공간</li>
               <li>부서 간 장벽 없이 실무 꿀팁을 나누는 소통의 장</li>
             </ul>
           </div>
@@ -407,7 +411,7 @@
             </div>
             <ul class="menu-card__list">
               <li>최신 AI 트렌드 · AI Tool 활용 가이드</li>
-              <li>선행 조직의 생생한 인터뷰 등 AI 인사이트를 담은 정기 뉴스레터</li>
+              <li>선행 조직의 생생한 인터뷰 등 AI 인사이트를 담은<br />정기 뉴스레터</li>
             </ul>
           </div>
         </article>
@@ -423,23 +427,7 @@
             </div>
             <ul class="menu-card__list">
               <li>ACE가 발굴하고 현업에서 검증된 우수 AI 활용 사례 모음</li>
-              <li>바로 가져다 쓸 수 있는 프롬프트를 한눈에 확인하는 지식 라이브러리</li>
-            </ul>
-          </div>
-        </article>
-
-        <!-- 5. AI 지원(쉐어포인트 전용) -->
-        <article class="menu-card reveal" data-reveal="up" style="--i:4">
-          <div class="menu-card__rail" aria-hidden="true"></div>
-          <div class="menu-card__row">
-            <span class="menu-card__icon">🛟</span>
-            <div class="menu-card__head">
-              <p class="menu-card__lead">현업 AI 도입 · 문의 창구</p>
-              <h3 class="menu-card__name">AI 지원(쉐어포인트 전용)</h3>
-            </div>
-            <ul class="menu-card__list">
-              <li>업무 적용 시 필요한 AI 도구 도입과 운영 관련 도움</li>
-              <li>문의 유형에 따라 현장 출장 및 원격 지원</li>
+              <li>바로 가져다 쓸 수 있는 프롬프트를 한눈에 확인하는<br />지식 라이브러리</li>
             </ul>
           </div>
         </article>
@@ -471,6 +459,33 @@
           </span>
         </div>
       </a>
+    </section>
+
+    <!-- ═══════════════════════ PANEL: AI 지원 요청 (신규) ═══════════════════════ -->
+    <section class="panel" id="panel-support" role="tabpanel" aria-labelledby="tab-support" hidden>
+      <header class="panel__header reveal" data-reveal="up">
+        <p class="panel__kicker">SECTION 04 · SUPPORT</p>
+        <h2 class="panel__title">AI 활용에 도움이 필요하신가요?</h2>
+        <p class="panel__lead">ACE 와 AI 디자인랩이 직접 지원합니다. 언제든 요청해주세요!</p>
+      </header>
+
+      <article class="support-card reveal" data-reveal="up">
+        <div class="support-card__img-wrap">
+          <img src="assets/support.png" alt="AI 지원 요청 접속 방법 안내" class="support-card__img" />
+        </div>
+
+        <p class="support-card__caption">
+          <strong>SharePoint PlayGround Home</strong> 화면 우측의 <strong>지원 요청 접수</strong> 버튼을 클릭하거나, 아래 바로가기로 접속하세요.
+        </p>
+
+        <a class="support-card__btn"
+           href="https://forms.office.com/pages/responsepage.aspx?id=7w3LX5imzkCnOuphEwwTxrwPVgY5oXpMvc_j0K_9FbxUNVZESDUwOFpONjJCQzI1OU81S0c5UEszQi4u&amp;route=shorturl"
+           target="_blank" rel="noopener noreferrer">
+          <span class="support-card__btn-ico" aria-hidden="true">📝</span>
+          지원 요청 접수 바로가기
+          <span class="support-card__btn-arr" aria-hidden="true">↗</span>
+        </a>
+      </article>
     </section>
 
     <!-- ═══════════════════════ FOOTER ═══════════════════════ -->

@@ -236,13 +236,13 @@ img { display: block; max-width: 100%; }
 }
 
 
-/* ═══════════════════════ TABS ═══════════════════════ */
+/* ═══════════════════════ TABS (4개) ═══════════════════════ */
 .tabs {
   position: sticky;
   top: 20px;
   z-index: 50;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);   /* ✅ 3 → 4 */
   gap: 0;
   padding: 8px;
   background: var(--glass);
@@ -259,7 +259,7 @@ img { display: block; max-width: 100%; }
   position: absolute;
   top: 8px;
   left: 8px;
-  width: calc((100% - 16px) / 3);
+  width: calc((100% - 16px) / 4);         /* ✅ 3 → 4 */
   height: calc(100% - 16px);
   background: linear-gradient(135deg, var(--c-blue) 0%, var(--c-purple) 100%);
   border-radius: 100px;
@@ -307,7 +307,7 @@ img { display: block; max-width: 100%; }
 .panel__header { display: none; }
 
 
-/* ═══════════════════════ ACCESS CARDS (base; overrides in index.html) ═══════════════════════ */
+/* ═══════════════════════ ACCESS CARDS ═══════════════════════ */
 .access-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -428,11 +428,7 @@ img { display: block; max-width: 100%; }
 }
 
 
-/* ═══════════════════════ MENU CARDS · v2 ═══════════════════════
-   - 항상 펼친 상태로 모든 콘텐츠 노출
-   - 좌: 아이콘 / 중: 보라부제+이름 / 우: 설명 리스트
-   - 호버: 카드 살짝 이동 + 우측 리스트 살짝 확대 + 아이콘 회전
-   ═══════════════════════════════════════════════════════════════ */
+/* ═══════════════════════ MENU CARDS · v2 ═══════════════════════ */
 .menu-stack {
   display: flex;
   flex-direction: column;
@@ -473,7 +469,6 @@ img { display: block; max-width: 100%; }
   opacity: 1;
 }
 
-/* grid: [아이콘] [본문(이름+부제)] [우측 리스트] */
 .menu-card__row {
   display: grid;
   grid-template-columns: auto minmax(210px, 0.75fr) 1.7fr;
@@ -501,7 +496,6 @@ img { display: block; max-width: 100%; }
   min-width: 0;
 }
 
-/* 보라 부제 — 검은 이름 위로 (항상 보임) */
 .menu-card__lead {
   font-size: 12px;
   font-weight: 600;
@@ -511,7 +505,6 @@ img { display: block; max-width: 100%; }
   line-height: 1.4;
 }
 
-/* 카드 이름 — Pretendard 강제 */
 .menu-card__name {
   font-family: 'Pretendard Variable', 'Pretendard', system-ui, sans-serif;
   font-size: 19px;
@@ -521,7 +514,6 @@ img { display: block; max-width: 100%; }
   line-height: 1.3;
 }
 
-/* 우측 리스트 — 항상 보임, 호버시 살짝 확대 */
 .menu-card__list {
   list-style: none;
   margin: 0;
@@ -636,6 +628,97 @@ img { display: block; max-width: 100%; }
 }
 .teams-cta:hover .teams-cta__arrow {
   transform: translate(3px, -3px);
+}
+
+
+/* ═══════════════════════ SUPPORT CARD (신규) ═══════════════════════
+   AI 지원 요청 패널 — 스크린샷 이미지 + 안내 문구 + 바로가기 버튼
+   ═══════════════════════════════════════════════════════════════ */
+.support-card {
+  position: relative;
+  padding: 32px;
+  border-radius: 28px;
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--glass-line);
+  box-shadow: var(--sh-md);
+  text-align: center;
+  isolation: isolate;
+  overflow: hidden;
+}
+.support-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 60% at 100% 0%, rgba(236, 72, 153, 0.14), transparent 70%),
+    radial-gradient(60% 60% at 0% 100%, rgba(79, 70, 229, 0.12), transparent 70%);
+}
+
+.support-card__img-wrap {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--glass-edge);
+  box-shadow: 0 14px 36px -18px rgba(15, 23, 42, 0.3);
+  background: #fff;
+  margin-bottom: 24px;
+}
+.support-card__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.support-card__caption {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--c-ink-soft);
+  margin-bottom: 26px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.support-card__caption strong {
+  color: var(--c-ink);
+  font-weight: 700;
+  background: linear-gradient(180deg, transparent 60%, rgba(236, 72, 153, 0.22) 60%);
+  padding: 0 2px;
+}
+
+.support-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 32px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, var(--c-blue) 0%, var(--c-purple) 50%, var(--c-pink) 100%);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: 0 14px 32px -12px rgba(79, 70, 229, 0.55);
+  transition: transform 0.4s var(--ease-out),
+              box-shadow 0.4s var(--ease-out),
+              background-position 0.6s var(--ease-out);
+}
+.support-card__btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px -12px rgba(236, 72, 153, 0.55);
+  background-position: 100% 50%;
+}
+.support-card__btn-ico {
+  font-size: 18px;
+}
+.support-card__btn-arr {
+  font-size: 16px;
+  transition: transform 0.4s var(--ease-out);
+}
+.support-card__btn:hover .support-card__btn-arr {
+  transform: translate(4px, -4px);
 }
 
 
@@ -764,7 +847,6 @@ img { display: block; max-width: 100%; }
   transform: translate(0, 0);
 }
 
-/* Stagger for menu cards */
 .menu-card.reveal.is-visible {
   transition-delay: calc(var(--i, 0) * 0.07s);
 }
@@ -787,7 +869,6 @@ img { display: block; max-width: 100%; }
   .tab__num { display: none; }
   .tab { font-size: 13px; padding: 12px 6px; }
 
-  /* 메뉴 카드 모바일: 우측 리스트를 아래로 떨어뜨림 */
   .menu-card__row {
     grid-template-columns: auto 1fr;
     gap: 12px 14px;
@@ -800,6 +881,9 @@ img { display: block; max-width: 100%; }
     margin-top: 6px;
   }
   .menu-card:hover .menu-card__list { transform: scale(1.02); }
+
+  .support-card { padding: 24px 20px; }
+  .support-card__btn { padding: 16px 24px; font-size: 15px; }
 }
 
 @media (max-width: 520px) {
@@ -815,6 +899,7 @@ img { display: block; max-width: 100%; }
   .menu-card__icon { width: 44px; height: 44px; font-size: 22px; }
   .menu-card__name { font-size: 17px; }
   .teams-cta__title { font-size: 20px; }
+  .support-card__caption { font-size: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -824,3 +909,33 @@ img { display: block; max-width: 100%; }
   }
   .bg-blob { animation: none; }
 }
+
+
+/* ─── 전체 글자 크기 키우기 (어르신 가독성) ─── */
+.page { font-size: 17px; }
+
+.hero__desc           { font-size: 19px; }
+.hero__chip-korean    { font-size: 16px; }
+.tab                  { font-size: 17px; }
+
+.access-card__badge   { font-size: 13px; }
+.menu-card__lead      { font-size: 14px; }
+.menu-card__name      { font-size: 22px; }
+.menu-card__list li   { font-size: 16px; }
+
+.teams-cta__title     { font-size: 30px; }
+.teams-cta__desc      { font-size: 16px; }
+.teams-cta__btn       { font-size: 16px; }
+
+.modal__title         { font-size: 25px; }
+.modal__body          { font-size: 17px; }
+.modal__caption       { font-size: 15px; }
+
+/* ─── 접속 카드 글자 강제 키우기 ─── */
+.access-card__title { font-size: 27px !important; }
+.access-card__desc  { font-size: 17px !important; line-height: 1.7 !important; }
+.access-btn         { font-size: 16px !important; padding: 18px 18px !important; }
+
+/* ─── 지원 카드 글자도 같은 톤으로 ─── */
+.support-card__caption { font-size: 17px; line-height: 1.75; }
+.support-card__btn     { font-size: 17px; }

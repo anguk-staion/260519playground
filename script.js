@@ -1,6 +1,6 @@
 /* ╔══════════════════════════════════════════════════════════════════
    PlayGround interactions
-   - Tab switching with sliding indicator
+   - Tab switching with sliding indicator (auto-supports any # of tabs)
    - IntersectionObserver scroll reveal
    - Modal system (open / close / esc / backdrop)
    - Mouse-tracking 3D tilt on access cards
@@ -14,11 +14,14 @@
      ───────────────────────────────────────────── */
   const tabs = document.querySelectorAll('.tab');
   const indicator = document.querySelector('.tabs__indicator');
-  const panels = {
-    access: document.getElementById('panel-access'),
-    menu:   document.getElementById('panel-menu'),
-    teams:  document.getElementById('panel-teams'),
-  };
+
+  // ✅ 동적으로 모든 .panel 을 자동 등록
+  //    → 앞으로 패널을 추가/삭제해도 JS 수정 불필요
+  const panels = {};
+  document.querySelectorAll('.panel').forEach(panel => {
+    const key = panel.id.replace('panel-', '');
+    panels[key] = panel;
+  });
 
   function moveIndicator(activeTab) {
     const index = Array.from(tabs).indexOf(activeTab);
@@ -42,7 +45,6 @@
       if (key === target) {
         panel.hidden = false;
         panel.classList.add('is-active');
-        // Re-trigger reveal animations inside this panel
         panel.querySelectorAll('.reveal').forEach(el => {
           el.classList.remove('is-visible');
         });
@@ -60,7 +62,7 @@
 
   tabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
-      // 팀즈 활용팁: external link in new tab, AND show panel
+      // 팀즈 활용팁: external link in new tab AND show panel
       if (tab.dataset.tab === 'teams') {
         window.open(
           'https://autoway.hyundai.net/board/H147/Lists/H14700022/DispForm.aspx?ID=511',
@@ -72,7 +74,6 @@
     });
   });
 
-  // Initialize indicator on load
   requestAnimationFrame(() => {
     const active = document.querySelector('.tab.is-active');
     if (active) moveIndicator(active);
@@ -117,7 +118,6 @@
     modal.hidden = false;
     requestAnimationFrame(() => modal.classList.add('is-open'));
     document.body.style.overflow = 'hidden';
-    // focus the close button for accessibility
     const closeBtn = modal.querySelector('.modal__close');
     if (closeBtn) closeBtn.focus();
   }
@@ -155,7 +155,7 @@
      4. MOUSE-TRACK 3D TILT on ACCESS CARDS
      ───────────────────────────────────────────── */
   const accessCards = document.querySelectorAll('.access-card');
-  const TILT_MAX = 5; // degrees
+  const TILT_MAX = 5;
 
   accessCards.forEach(card => {
     let raf = null;
@@ -164,10 +164,10 @@
       if (raf) cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;  // 0..1
-        const y = (e.clientY - rect.top) / rect.height;  // 0..1
-        const rotY = (x - 0.5) * 2 * TILT_MAX;           // left/right
-        const rotX = -(y - 0.5) * 2 * TILT_MAX;          // up/down
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        const rotY = (x - 0.5) * 2 * TILT_MAX;
+        const rotX = -(y - 0.5) * 2 * TILT_MAX;
 
         card.style.transform =
           `translateY(-6px) perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
