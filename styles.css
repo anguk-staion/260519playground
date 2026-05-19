@@ -476,7 +476,7 @@ img { display: block; max-width: 100%; }
 /* grid: [아이콘] [본문(이름+부제)] [우측 리스트] */
 .menu-card__row {
   display: grid;
-  grid-template-columns: auto minmax(200px, 1fr) 1.35fr;
+  grid-template-columns: auto minmax(180px, 0.55fr) 1.85fr;
   align-items: center;
   gap: 18px 26px;
   padding: 20px 26px;
