@@ -21,10 +21,13 @@
   <style>
     /* ─── 0. 히어로 위쪽 여백 줄이기 ─── */
     .page { padding-top: 26px; }
-    .hero { padding: 0 0 36px; }
+    .hero { padding: 0 0 10px; }
     .hero__sparkles { height: 20px; margin-bottom: 4px; }
     .hero__title { margin-bottom: 20px; }
     .hero__subtitle { margin-bottom: 20px; }
+
+    /* ─── 0-1. 탭 ↔ 패널 사이 간격 줄이기 ─── */
+    .tabs { margin-bottom: 20px; }
 
     /* ─── 1. 접속 방법 카드 키우기 ─── */
     .access-grid { gap: 28px; }
@@ -153,12 +156,99 @@
     }
     .modal__body[data-empty]::before { display: none; }
 
+    /* ─── 4. 탭 위 클릭 유도 안내 (우상단) ─── */
+    .tabs-hint {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      margin-top: -4px;
+      margin-bottom: 6px;
+      padding-right: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c-ink-muted);
+      letter-spacing: -0.01em;
+    }
+    .tabs-hint__emoji {
+      display: inline-block;
+      font-size: 16px;
+      transform-origin: 60% 60%;
+      animation: hint-wiggle 1.8s var(--ease-in-out) infinite;
+    }
+    .tabs-hint__text {
+      background: var(--glass);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-edge);
+      border-radius: 999px;
+      padding: 5px 12px;
+      color: var(--c-ink-soft);
+    }
+    @keyframes hint-wiggle {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      20%      { transform: translate(-1px, -3px) rotate(-8deg); }
+      40%      { transform: translate(0, 0) rotate(0deg); }
+      55%      { transform: translate(1px, -2px) rotate(6deg); }
+      70%      { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* ─── 5. 비활성 탭 클릭 유도 미세 애니메이션 ─── */
+    .tab:not(.is-active) {
+      animation: tab-invite 2.8s var(--ease-in-out) infinite;
+      animation-delay: var(--tab-delay, 0s);
+      transition: color 0.4s var(--ease-out),
+                  background 0.45s var(--ease-out),
+                  transform 0.3s var(--ease-out);
+    }
+    @keyframes tab-invite {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-3px); }
+    }
+
+    /* ─── 6. 탭별 고유 컬러 (idle: 숫자만 살짝 / hover: 컬러 글로우) ─── */
+    .tab[data-tab="access"]  { --tab-c: #4f46e5; --tab-c-tint: rgba(79, 70, 229, 0.18); }
+    .tab[data-tab="menu"]    { --tab-c: #8b5cf6; --tab-c-tint: rgba(139, 92, 246, 0.18); }
+    .tab[data-tab="support"] { --tab-c: #ec4899; --tab-c-tint: rgba(236, 72, 153, 0.20); }
+    .tab[data-tab="teams"]   { --tab-c: #10b981; --tab-c-tint: rgba(16, 185, 129, 0.22); }
+
+    .tab:not(.is-active) .tab__num {
+      color: var(--tab-c);
+      opacity: 0.6;
+      transition: opacity 0.3s var(--ease-out),
+                  transform 0.3s var(--ease-out),
+                  text-shadow 0.4s var(--ease-out);
+    }
+    .tab:not(.is-active):hover {
+      animation-play-state: paused;
+      transform: translateY(-4px) scale(1.04);
+      color: var(--tab-c);
+      background: radial-gradient(70% 130% at 50% 55%,
+                                  var(--tab-c-tint) 0%,
+                                  transparent 75%);
+    }
+    .tab:not(.is-active):hover .tab__num {
+      opacity: 1;
+      transform: scale(1.1);
+      text-shadow: 0 4px 14px var(--tab-c-tint);
+    }
+    .tab:not(.is-active):hover .tab__label {
+      letter-spacing: -0.005em;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tab:not(.is-active),
+      .tabs-hint__emoji { animation: none; }
+    }
+
     /* 좁은 화면 보정 */
     @media (max-width: 920px) {
       .access-card { min-height: 420px; padding: 36px 28px 28px; }
       .access-card__title { font-size: 21px; }
       .access-actions { gap: 10px; }
       .access-btn { padding: 14px 14px; font-size: 13px; }
+      .tabs-hint { font-size: 12px; padding-right: 6px; }
+      .tabs-hint__text { padding: 4px 10px; }
     }
     @media (max-width: 520px) {
       .access-actions { grid-template-columns: 1fr; }
@@ -202,24 +292,27 @@
     </section>
 
     <!-- ═══════════════════════ TAB NAV (4개) ═══════════════════════ -->
+    <div class="tabs-hint reveal" data-reveal="up" aria-hidden="true">
+      <span class="tabs-hint__emoji">🖱️</span>
+      <span class="tabs-hint__text">메뉴를 클릭해 보세요</span>
+    </div>
     <nav class="tabs reveal" data-reveal="up" role="tablist" aria-label="PlayGround 메뉴">
       <div class="tabs__indicator" aria-hidden="true"></div>
-      <button class="tab is-active" role="tab" aria-selected="true" data-tab="access">
+      <button class="tab is-active" role="tab" aria-selected="true" data-tab="access" style="--tab-delay: 0s">
         <span class="tab__num">01</span>
         <span class="tab__label">접속 방법</span>
       </button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="menu">
+      <button class="tab" role="tab" aria-selected="false" data-tab="menu" style="--tab-delay: 0.4s">
         <span class="tab__num">02</span>
         <span class="tab__label">메뉴 소개</span>
       </button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="teams">
+      <button class="tab" role="tab" aria-selected="false" data-tab="support" style="--tab-delay: 0.8s">
         <span class="tab__num">03</span>
-        <span class="tab__label">팀즈 활용팁</span>
-        <span class="tab__external" aria-hidden="true">↗</span>
-      </button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="support">
-        <span class="tab__num">04</span>
         <span class="tab__label">AI 지원 요청</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="teams" style="--tab-delay: 1.2s">
+        <span class="tab__num">04</span>
+        <span class="tab__label">팀즈 활용팁</span>
       </button>
     </nav>
 

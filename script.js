@@ -62,14 +62,6 @@
 
   tabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
-      // 팀즈 활용팁: external link in new tab AND show panel
-      if (tab.dataset.tab === 'teams') {
-        window.open(
-          'https://autoway.hyundai.net/board/H147/Lists/H14700022/DispForm.aspx?ID=511',
-          '_blank',
-          'noopener,noreferrer'
-        );
-      }
       activateTab(tab);
     });
   });
