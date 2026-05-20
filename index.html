@@ -241,12 +241,40 @@
       .tabs-hint__emoji { animation: none; }
     }
 
-    /* ─── 7. 푸터 텍스트 (워크이노베이션센터 · AI디자인랩) ─── */
+    /* ─── 7. 푸터 (워크이노베이션센터 | [MARK] AI디자인랩) ─── */
     .footer__org {
-      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
       font-weight: 600;
       letter-spacing: -0.01em;
       color: var(--c-ink-muted);
+    }
+    .footer__org-text {
+      display: inline-block;
+      line-height: 1;
+    }
+    .footer__org-divider {
+      display: inline-block;
+      width: 1px;
+      height: 14px;
+      background: currentColor;
+      opacity: 0.4;
+    }
+    .footer__org-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    /* 마크 PNG 를 텍스트 색과 동일하게 칠하기 위해 mask 사용 */
+    .footer__org-mark {
+      display: inline-block;
+      width: 22px;
+      height: 18px;
+      background-color: currentColor;
+      -webkit-mask: url('assets/MARK.png') center / contain no-repeat;
+              mask: url('assets/MARK.png') center / contain no-repeat;
     }
 
     /* 좁은 화면 보정 */
@@ -590,7 +618,14 @@
 
     <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
     <footer class="footer reveal" data-reveal="up">
-      <p class="footer__org">워크이노베이션센터 · AI디자인랩</p>
+      <p class="footer__org">
+        <span class="footer__org-text">워크이노베이션센터</span>
+        <span class="footer__org-divider" aria-hidden="true"></span>
+        <span class="footer__org-brand">
+          <span class="footer__org-mark" role="img" aria-label="AI디자인랩 마크"></span>
+          <span class="footer__org-text">AI디자인랩</span>
+        </span>
+      </p>
     </footer>
 
   </main>
