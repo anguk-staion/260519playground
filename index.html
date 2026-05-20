@@ -241,6 +241,14 @@
       .tabs-hint__emoji { animation: none; }
     }
 
+    /* ─── 7. 푸터 텍스트 (워크이노베이션센터 · AI디자인랩) ─── */
+    .footer__org {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--c-ink-muted);
+    }
+
     /* 좁은 화면 보정 */
     @media (max-width: 920px) {
       .access-card { min-height: 420px; padding: 36px 28px 28px; }
@@ -312,7 +320,7 @@
       </button>
       <button class="tab" role="tab" aria-selected="false" data-tab="teams" style="--tab-delay: 1.2s">
         <span class="tab__num">04</span>
-        <span class="tab__label">팀즈 활용팁</span>
+        <span class="tab__label">Teams 활용팁</span>
       </button>
     </nav>
 
@@ -541,7 +549,7 @@
          target="_blank" rel="noopener noreferrer">
         <div class="teams-cta__bg" aria-hidden="true"></div>
         <div class="teams-cta__body">
-          <h3 class="teams-cta__title">Teams 꿀팁 가이드 <span class="emoji-spin">💫</span></h3>
+          <h3 class="teams-cta__title">Teams 활용팁 <span class="emoji-spin">💫</span></h3>
           <p class="teams-cta__desc">팀즈 설치부터 추천 기능 소개까지 한 번에 확인하세요.</p>
         </div>
         <div class="teams-cta__action">
@@ -582,7 +590,7 @@
 
     <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
     <footer class="footer reveal" data-reveal="up">
-      <img src="assets/aidesignlab-logo.png" alt="AI 디자인랩" class="footer__logo" />
+      <p class="footer__org">워크이노베이션센터 · AI디자인랩</p>
     </footer>
 
   </main>
