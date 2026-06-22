@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlayGround · 현대건설 AI 활용 소통 커뮤니티</title>
+
+  <!-- Pretendard (Korean) + JetBrains Mono (accent) -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       INLINE STYLE OVERRIDES
+       (styles.css 의 원본 규칙을 덮어쓰는 추가분)
+       ═══════════════════════════════════════════════════════════════ -->
+  <style>
+    /* ─── 0. 히어로 위쪽 여백 줄이기 ─── */
+    .page { padding-top: 26px; }
+    .hero { padding: 0 0 10px; }
+    .hero__sparkles { height: 20px; margin-bottom: 4px; }
+    .hero__title { margin-bottom: 20px; }
+    .hero__subtitle { margin-bottom: 20px; }
+
+    /* ─── 0-1. 탭 ↔ 패널 사이 간격 줄이기 ─── */
+    .tabs { margin-bottom: 20px; }
+
+    /* ─── 0-2. 탭 3개로 폭 균등 분배 (뒤 여백 제거) ─── */
+    .tabs { grid-template-columns: repeat(3, 1fr); }
+    .tabs__indicator { width: calc((100% - 16px) / 3); }
+
+    /* ─── 3. 모달 키우고 이미지 담기 ─── */
+    .modal__panel {
+      max-width: 760px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal__body {
+      padding: 24px 28px 32px;
+      overflow-y: auto;
+    }
+    .modal__img-wrap {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--glass-edge);
+      box-shadow: 0 12px 32px -16px rgba(15, 23, 42, 0.25);
+      background: #fff;
+    }
+    .modal__img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .modal__caption {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--c-ink-muted);
+      line-height: 1.6;
+    }
+    .modal__caption strong {
+      color: var(--c-ink-soft);
+      font-weight: 700;
+    }
+    .modal__body[data-empty]::before { display: none; }
+
+    /* ─── 4. 탭 위 클릭 유도 안내 (우상단) ─── */
+    .tabs-hint {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      margin-top: -4px;
+      margin-bottom: 6px;
+      padding-right: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--c-ink-muted);
+      letter-spacing: -0.01em;
+    }
+    .tabs-hint__emoji {
+      display: inline-block;
+      font-size: 16px;
+      transform-origin: 60% 60%;
+      animation: hint-wiggle 1.8s var(--ease-in-out) infinite;
+    }
+    .tabs-hint__text {
+      background: var(--glass);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-edge);
+      border-radius: 999px;
+      padding: 5px 12px;
+      color: var(--c-ink-soft);
+    }
+    @keyframes hint-wiggle {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      20%      { transform: translate(-1px, -3px) rotate(-8deg); }
+      40%      { transform: translate(0, 0) rotate(0deg); }
+      55%      { transform: translate(1px, -2px) rotate(6deg); }
+      70%      { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* ─── 5. 비활성 탭 클릭 유도 미세 애니메이션 ─── */
+    .tab:not(.is-active) {
+      animation: tab-invite 2.8s var(--ease-in-out) infinite;
+      animation-delay: var(--tab-delay, 0s);
+      transition: color 0.4s var(--ease-out),
+                  background 0.45s var(--ease-out),
+                  transform 0.3s var(--ease-out);
+    }
+    @keyframes tab-invite {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-3px); }
+    }
+
+    /* ─── 6. 탭별 고유 컬러 (idle: 숫자만 살짝 / hover: 컬러 글로우) ─── */
+    .tab[data-tab="menu"]    { --tab-c: #8b5cf6; --tab-c-tint: rgba(139, 92, 246, 0.18); }
+    .tab[data-tab="support"] { --tab-c: #ec4899; --tab-c-tint: rgba(236, 72, 153, 0.20); }
+    .tab[data-tab="teams"]   { --tab-c: #10b981; --tab-c-tint: rgba(16, 185, 129, 0.22); }
+
+    .tab:not(.is-active) .tab__num {
+      color: var(--tab-c);
+      opacity: 0.6;
+      transition: opacity 0.3s var(--ease-out),
+                  transform 0.3s var(--ease-out),
+                  text-shadow 0.4s var(--ease-out);
+    }
+    .tab:not(.is-active):hover {
+      animation-play-state: paused;
+      transform: translateY(-4px) scale(1.04);
+      color: var(--tab-c);
+      background: radial-gradient(70% 130% at 50% 55%,
+                                  var(--tab-c-tint) 0%,
+                                  transparent 75%);
+    }
+    .tab:not(.is-active):hover .tab__num {
+      opacity: 1;
+      transform: scale(1.1);
+      text-shadow: 0 4px 14px var(--tab-c-tint);
+    }
+    .tab:not(.is-active):hover .tab__label {
+      letter-spacing: -0.005em;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tab:not(.is-active),
+      .tabs-hint__emoji { animation: none; }
+    }
+
+    /* ─── 7. 푸터 (워크이노베이션센터 | [MARK] AI디자인랩) ─── */
+    .footer__org {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--c-ink-muted);
+    }
+    .footer__org-text {
+      display: inline-block;
+      line-height: 1;
+    }
+    .footer__org-divider {
+      display: inline-block;
+      width: 1px;
+      height: 14px;
+      background: currentColor;
+      opacity: 0.4;
+    }
+    .footer__org-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    /* 마크 PNG 를 텍스트 색과 동일하게 칠하기 위해 mask 사용 */
+    .footer__org-mark {
+      display: inline-block;
+      width: 22px;
+      height: 18px;
+      background-color: currentColor;
+      -webkit-mask: url('assets/MARK.png') center / contain no-repeat;
+              mask: url('assets/MARK.png') center / contain no-repeat;
+    }
+
+    /* 좁은 화면 보정 */
+    @media (max-width: 920px) {
+      .tabs-hint { font-size: 12px; padding-right: 6px; }
+      .tabs-hint__text { padding: 4px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated gradient mesh background -->
+  <div class="bg-stage" aria-hidden="true">
+    <div class="bg-blob bg-blob--1"></div>
+    <div class="bg-blob bg-blob--2"></div>
+    <div class="bg-blob bg-blob--3"></div>
+    <div class="bg-grain"></div>
+  </div>
+
+  <main class="page">
+
+    <!-- ═══════════════════════ HERO ═══════════════════════ -->
+    <section class="hero reveal" data-reveal="up">
+      <div class="hero__sparkles" aria-hidden="true">
+        <span class="spark spark--1">✦</span>
+        <span class="spark spark--2">✦</span>
+        <span class="spark spark--3">✦</span>
+        <span class="spark spark--4">✦</span>
+        <span class="spark spark--5">✦</span>
+      </div>
+
+      <h1 class="hero__title">
+        <img src="assets/playground-logo.png" alt="PlayGround" class="hero__logo" />
+      </h1>
+
+      <p class="hero__subtitle">
+        <span class="hero__chip-korean">AI 활용 소통 커뮤니티</span>
+      </p>
+
+      <p class="hero__desc">
+        AI와 함께 자유롭게 교류하는 공간, <strong>PlayGround</strong>에서<br />
+        부서 간 장벽 없이 실무 꿀팁과 인사이트를 나눠보세요.
+      </p>
+    </section>
+
+    <!-- ═══════════════════════ TAB NAV (3개) ═══════════════════════ -->
+    <div class="tabs-hint reveal" data-reveal="up" aria-hidden="true">
+      <span class="tabs-hint__emoji">🖱️</span>
+      <span class="tabs-hint__text">메뉴를 클릭해 보세요</span>
+    </div>
+    <nav class="tabs reveal" data-reveal="up" role="tablist" aria-label="PlayGround 메뉴">
+      <div class="tabs__indicator" aria-hidden="true"></div>
+      <button class="tab is-active" role="tab" aria-selected="true" data-tab="menu" style="--tab-delay: 0s">
+        <span class="tab__num">01</span>
+        <span class="tab__label">메뉴 소개</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="support" style="--tab-delay: 0.4s">
+        <span class="tab__num">02</span>
+        <span class="tab__label">AI 지원 요청</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="teams" style="--tab-delay: 0.8s">
+        <span class="tab__num">03</span>
+        <span class="tab__label">Teams 활용팁</span>
+      </button>
+    </nav>
+
+    <!-- ═══════════════════════ PANEL: 메뉴 소개 (v2: 항상 펼친 모습) ═══════════════════════ -->
+    <section class="panel is-active" id="panel-menu" role="tabpanel" aria-labelledby="tab-menu">
+
+      <header class="panel__header reveal" data-reveal="up">
+        <p class="panel__kicker">SECTION 01 · MENU</p>
+        <h2 class="panel__title">PlayGround 의 네 가지 풍경</h2>
+        <p class="panel__lead">PlayGround 에서 만날 수 있는 메뉴를 소개합니다.</p>
+      </header>
+
+      <div class="menu-stack">
+
+        <!-- 1. 자유게시판(팀즈 전용) -->
+        <article class="menu-card reveal" data-reveal="up" style="--i:0">
+          <div class="menu-card__rail" aria-hidden="true"></div>
+          <div class="menu-card__row">
+            <span class="menu-card__icon">💬</span>
+            <div class="menu-card__head">
+              <p class="menu-card__lead">실시간 Q&amp;A · 전사 소통 허브</p>
+              <h3 class="menu-card__name">자유 게시판</h3>
+            </div>
+            <ul class="menu-card__list">
+              <li>AI 활용 중 생기는 궁금증을 동료들과 자유롭게<br />묻고 답하는 채팅 공간</li>
+              <li>부서 간 장벽 없이 실무 꿀팁을 나누는 소통의 장</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 2. PlayDay -->
+        <article class="menu-card reveal" data-reveal="up" style="--i:1">
+          <div class="menu-card__rail" aria-hidden="true"></div>
+          <div class="menu-card__row">
+            <span class="menu-card__icon">🎮</span>
+            <div class="menu-card__head">
+              <p class="menu-card__lead">체험형 액티비티 · 우수 사례 전시</p>
+              <h3 class="menu-card__name">PlayDay</h3>
+            </div>
+            <ul class="menu-card__list">
+              <li>일상 속 AI의 주요 기능을 직접 경험할 수 있는 액티비티</li>
+              <li>동료의 작품을 서로 감상하고 의견을 공유하는 플랫폼</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 3. PlayBook -->
+        <article class="menu-card reveal" data-reveal="up" style="--i:2">
+          <div class="menu-card__rail" aria-hidden="true"></div>
+          <div class="menu-card__row">
+            <span class="menu-card__icon">📖</span>
+            <div class="menu-card__head">
+              <p class="menu-card__lead">정기 뉴스레터 · 인사이트 큐레이션</p>
+              <h3 class="menu-card__name">PlayBook</h3>
+            </div>
+            <ul class="menu-card__list">
+              <li>한눈에 읽는 최신 글로벌 AI 트렌드</li>
+              <li>업무 효율을 극대화하는 AI 핵심 인사이트</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- 4. AI Guide -->
+        <article class="menu-card reveal" data-reveal="up" style="--i:3">
+          <div class="menu-card__rail" aria-hidden="true"></div>
+          <div class="menu-card__row">
+            <span class="menu-card__icon">🧭</span>
+            <div class="menu-card__head">
+              <p class="menu-card__lead">검증된 Usecase · AI 활용법 공유</p>
+              <h3 class="menu-card__name">AI Guide</h3>
+            </div>
+            <ul class="menu-card__list">
+              <li>ACE · AI링커가 발굴한 우수 Usecase 모음</li>
+              <li>핵심만 쏙쏙 골라 담은 AI 숏폼 가이드</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ PANEL: AI 지원 요청 ═══════════════════════ -->
+    <section class="panel" id="panel-support" role="tabpanel" aria-labelledby="tab-support" hidden>
+      <header class="panel__header reveal" data-reveal="up">
+        <p class="panel__kicker">SECTION 02 · SUPPORT</p>
+        <h2 class="panel__title">AI 활용에 도움이 필요하신가요?</h2>
+        <p class="panel__lead">ACE 와 AI 디자인랩이 직접 지원합니다. 언제든 요청해주세요!</p>
+      </header>
+
+      <article class="support-card reveal" data-reveal="up">
+        <div class="support-card__img-wrap">
+          <img src="assets/support.png" alt="AI 지원 요청 접속 방법 안내" class="support-card__img" />
+        </div>
+
+        <p class="support-card__caption">
+          SharePoint PlayGround 사이트 접속 후<br />Home 메인 화면 하단의 <strong>지원 요청 접수</strong> 버튼을 클릭하거나, 아래 바로가기로 접속하세요.
+        </p>
+
+        <a class="support-card__btn"
+           href="https://forms.office.com/pages/responsepage.aspx?id=7w3LX5imzkCnOuphEwwTxrwPVgY5oXpMvc_j0K_9FbxUNVZESDUwOFpONjJCQzI1OU81S0c5UEszQi4u&amp;route=shorturl"
+           target="_blank" rel="noopener noreferrer">
+          <span class="support-card__btn-ico" aria-hidden="true">📝</span>
+          지원 요청 접수 바로가기
+          <span class="support-card__btn-arr" aria-hidden="true">↗</span>
+        </a>
+      </article>
+    </section>
+
+    <!-- ═══════════════════════ PANEL: 팀즈 활용팁 ═══════════════════════ -->
+    <section class="panel" id="panel-teams" role="tabpanel" aria-labelledby="tab-teams" hidden>
+      <header class="panel__header reveal" data-reveal="up">
+        <p class="panel__kicker">SECTION 03 · TIPS</p>
+        <h2 class="panel__title">팀즈가 처음이신가요?</h2>
+        <p class="panel__lead">인사이드 H에 정리된 팀즈 설치 &amp; 활용 가이드로 이동합니다.</p>
+      </header>
+
+      <a class="teams-cta reveal" data-reveal="up"
+         href="https://autoway.hyundai.net/board/H147/Lists/H14700022/DispForm.aspx?ID=511"
+         target="_blank" rel="noopener noreferrer">
+        <div class="teams-cta__bg" aria-hidden="true"></div>
+        <div class="teams-cta__body">
+          <h3 class="teams-cta__title">Teams 활용팁 <span class="emoji-spin">💫</span></h3>
+          <p class="teams-cta__desc">팀즈 설치부터 추천 기능 소개까지 한 번에 확인하세요.</p>
+        </div>
+        <div class="teams-cta__action">
+          <span class="teams-cta__btn">
+            새 창에서 열기
+            <span class="teams-cta__arrow">↗</span>
+          </span>
+        </div>
+      </a>
+    </section>
+
+    <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+    <footer class="footer reveal" data-reveal="up">
+      <p class="footer__org">
+        <span class="footer__org-text">워크이노베이션센터</span>
+        <span class="footer__org-divider" aria-hidden="true"></span>
+        <span class="footer__org-brand">
+          <span class="footer__org-mark" role="img" aria-label="AI디자인랩 마크"></span>
+          <span class="footer__org-text">AI디자인랩</span>
+        </span>
+      </p>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
